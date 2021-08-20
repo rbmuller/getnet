@@ -1,0 +1,9 @@
+Considerando que a empresa atua com alguma cloud de mercado, minha sugestão seria criar um pipeline
+para ingerir diariamente os dados das transações, que provavelmente é a entidade com alta taxa de escrita
+os dados poderiam ser ingeridos via script Python orquestrado pelo Airflow e armazenados em storage AWS S3 
+
+A dimensão Contratos provavelmente é uma Slowly change dimension, a carregaria apenas em caso de alteração
+com uma DAG checando 1x ao dia. 
+
+Dados carregados no S3, leria as partições com Spark para então efetuar o processamento e carregar em outra camada ainda no S3
+ou uma tabela de métricas no DW (a depender dos casos de uso e da infra já em funcionamento)
